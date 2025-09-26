@@ -22,16 +22,15 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch('/api/game/stats')
     .then(res => res.json())
     .then(res => {
-        console.log(res)
         if (res.part) {
             document.getElementById('error').style.display = 'flex'
             return;
         }
 
-        if (res.data[0].fin.win) {
-            document.getElementById('win').innerHTML = `Victoire - ${res.data[0].fin.score}pts`
-        } else {
+        if (res.data[0].fin.vie === 0) {
             document.getElementById('win').innerHTML = `Defaite - ${res.data[0].fin.score}pts`
+        } else {
+            document.getElementById('win').innerHTML = `Victoire - ${res.data[0].fin.score}pts`
         }
 
         const dateDebut = new Date(res.data[0].dateDebut);
@@ -64,8 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <table>
                 <tr>
                     <td>
-                        <p><strong>Début de la partie :</strong>
-                            Le 0${dateDebut.getDate()}/0${dateDebut.getMonth() + 1}/${dateDebut.getFullYear()}
+                        <p><strong>Date :</strong>
+                            Le ${dateDebut.getDate()}/0${dateDebut.getMonth() + 1}/${dateDebut.getFullYear()}
                             à ${dateDebut.getHours()}h${dateDebut.getMinutes()}
                         </p>
                     </td>
